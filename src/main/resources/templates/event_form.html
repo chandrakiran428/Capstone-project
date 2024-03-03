@@ -1,139 +1,163 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Registration</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <div class="collapse" id="navbarToggleExternalContent">
-  <div class="bg-dark p-4">
-    <h5 class="text-white h4">Collapsed content</h5>
-    <span class="text-muted">Toggleable via the navbar brand.</span>
-  </div>
+<div class="container">
+    <h2 class="mt-5 mb-4">Event Registration Form</h2>
+    <form action="#" th:action="@{/submit}" th:object="${event}" method="post">
+        <input type="hidden" id="status" name="status" value="pending"> <!-- Hidden field for status with default value -->
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}">
+        </div>
+       <div class="form-group">
+    <label for="eventType">Event Type:</label>
+    <select class="form-control" id="eventType" th:field="*{eventType}">
+        <option value="" disabled selected>Select an Event</option>
+        <option value="Engagement">Engagement</option>
+        <option value="Reception">Reception</option>
+        <option value="Marriage">Marriage</option>
+        <option value="Birthday Party">Birthday Party</option>
+    </select>
 </div>
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-</nav>
-    <div class="container">
-        <h2 class="mt-5 mb-4">Event Registration Form</h2>
-        <form action="#" th:action="@{/submit}" th:object="${event}" method="post">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" th:field="*{name}">
+
+
+        <div class="form-group">
+            <label for="venue">Venue:</label>
+            <select class="form-control" id="venue" name="venue">
+                <!-- Placeholder option -->
+                <option value="" disabled selected>Select Venue</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="numberOfAttendees">Number of Attendees:</label>
+            <input type="number" class="form-control" id="numberOfAttendees" th:field="*{numberOfAttendees}">
+        </div>
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" class="form-control" id="date" th:field="*{date}">
+        </div>
+        <div class="form-group">
+            <label>Food Type:</label><br>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="veg" name="foodType" value="veg">
+                <label class="form-check-label" for="veg">Veg</label>
             </div>
-            <div class="form-group">
-                <label for="phoneNumber">Phone Number:</label>
-                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="nonveg" name="foodType" value="nonveg">
+                <label class="form-check-label" for="nonveg">Non-Veg</label>
             </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" th:field="*{email}">
+        </div>
+        <div class="form-group" id="mealTypes" style="display: none;">
+            <h2 class="mt-4 mb-3">Meal Selection</h2>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="dinner" value="dinner" name="mealType">
+                <label class="form-check-label" for="dinner">Dinner</label>
             </div>
-            <div class="form-group">
-                <label for="eventType">Event Type:</label>
-                <select class="form-control" id="eventType" th:field="*{eventType}">
-                    <option value="conference">Conference</option>
-                    <option value="seminar">Seminar</option>
-                    <option value="workshop">Workshop</option>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="lunch" value="lunch" name="mealType">
+                <label class="form-check-label" for="lunch">Lunch</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="snacks" value="snacks" name="mealType">
+                <label class="form-check-label" for="snacks">Snacks</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="breakfast" value="breakfast" name="mealType">
+                <label class="form-check-label" for="breakfast">Breakfast</label>
+            </div>
+            <div id="lunchOptions" style="display: none;">
+                <label for="lunchType">Lunch Type:</label>
+                <select class="form-control" id="lunchType" name="lunchType">
+                    <option value="normal">Normal</option>
+                    <option value="luxury">Luxury</option>
+                    <option value="premium">Premium</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="venue">Venue:</label>
-                <select class="form-control" id="venue" th:field="*{venue}">
-                    <option value="venue1">Venue 1</option>
-                    <option value="venue2">Venue 2</option>
-                    <option value="venue3">Venue 3</option>
+            <div id="dinnerOptions" style="display: none;">
+                <label for="dinnerType">Dinner Type:</label>
+                <select class="form-control" id="dinnerType" name="dinnerType">
+                    <option value="normal">Normal</option>
+                    <option value="luxury">Luxury</option>
+                    <option value="premium">Premium</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="numberOfAttendees">Number of Attendees:</label>
-                <input type="number" class="form-control" id="numberOfAttendees" th:field="*{numberOfAttendees}">
-            </div>
-            <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="date" class="form-control" id="date" th:field="*{date}">
-            </div>
-            <div class="form-group">
-                <label>Food Type:</label><br>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="veg" name="foodType" value="veg">
-                    <label class="form-check-label" for="veg">Veg</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="nonveg" name="foodType" value="nonveg">
-                    <label class="form-check-label" for="nonveg">Non-Veg</label>
-                </div>
-            </div>
-            <div class="form-group" id="mealTypes" style="display: none;">
-                <h2 class="mt-4 mb-3">Meal Selection</h2>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="dinner" value="dinner" name="mealType">
-                    <label class="form-check-label" for="dinner">Dinner</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="lunch" value="lunch" name="mealType">
-                    <label class="form-check-label" for="lunch">Lunch</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="snacks" value="snacks" name="mealType">
-                    <label class="form-check-label" for="snacks">Snacks</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="breakfast" value="breakfast" name="mealType">
-                    <label class="form-check-label" for="breakfast">Breakfast</label>
-                </div>
-                <div id="lunchOptions" style="display: none;">
-                    <label for="lunchType">Lunch Type:</label>
-                    <select class="form-control" id="lunchType" name="lunchType">
-                        <option value="normal">Normal</option>
-                        <option value="luxury">Luxury</option>
-                        <option value="premium">Premium</option>
-                    </select>
-                </div>
-                <div id="dinnerOptions" style="display: none;">
-                    <label for="dinnerType">Dinner Type:</label>
-                    <select class="form-control" id="dinnerType" name="dinnerType">
-                        <option value="normal">Normal</option>
-                        <option value="luxury">Luxury</option>
-                        <option value="premium">Premium</option>
-                    </select>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        $('input[type=radio][name=foodType]').change(function() {
-            if (this.value === 'veg' || this.value === 'nonveg') {
-                $('#mealTypes').show();
-            } else {
-                $('#mealTypes').hide();
-            }
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Fetch events from backend and populate dropdown
+    fetch('/events')
+        .then(response => response.json())
+        .then(data => {
+            const eventTypeDropdown = document.getElementById('eventType');
+            data.forEach(event => {
+                const option = document.createElement('option');
+                option.value = event.id;
+                option.text = event.name;
+                eventTypeDropdown.appendChild(option);
+            });
         });
 
-        $('#lunch').change(function() {
-            if (this.checked) {
-                $('#lunchOptions').show();
-            } else {
-                $('#lunchOptions').hide();
-            }
+    // Fetch venues from backend and populate dropdown
+    fetch('/VenueList')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const venueDropdown = document.getElementById('venue');
+            const venues = doc.querySelectorAll('tbody tr');
+            venues.forEach(venue => {
+                const option = document.createElement('option');
+                option.value = venue.querySelector('td:nth-child(1)').textContent;
+                option.text = venue.querySelector('td:nth-child(2)').textContent;
+                venueDropdown.appendChild(option);
+            });
         });
 
-        $('#dinner').change(function() {
-            if (this.checked) {
-                $('#dinnerOptions').show();
-            } else {
-                $('#dinnerOptions').hide();
-            }
-        });
-    </script>
+    // Toggle meal options based on food type selection
+    $('input[type=radio][name=foodType]').change(function() {
+        if (this.value === 'veg' || this.value === 'nonveg') {
+            $('#mealTypes').show();
+        } else {
+            $('#mealTypes').hide();
+        }
+    });
+
+    // Show lunch options when selected
+    $('#lunch').change(function() {
+        if (this.checked) {
+            $('#lunchOptions').show();
+        } else {
+            $('#lunchOptions').hide();
+        }
+    });
+
+    // Show dinner options when selected
+    $('#dinner').change(function() {
+        if (this.checked) {
+            $('#dinnerOptions').show();
+        } else {
+            $('#dinnerOptions').hide();
+        }
+    });
+</script>
 </body>
 </html>

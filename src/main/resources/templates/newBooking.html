@@ -14,14 +14,10 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Email</th>
-                    <th>Event Type</th>
                     <th>Venue</th>
-                    <th>Number of Attendees</th>
                     <th>Date</th>
-                    <th>Food Type</th>
                     <th>Order Status</th>
+                     <th>View</th> <!-- Added View header -->
                 </tr>
             </thead>
             <tbody>
@@ -29,14 +25,19 @@
                 <tr th:each="booking : ${bookings}">
                     <td th:text="${booking.id}"></td>
                     <td th:text="${booking.name}"></td>
-                    <td th:text="${booking.phoneNumber}"></td>
-                    <td th:text="${booking.email}"></td>
-                    <td th:text="${booking.eventType}"></td>
-                    <td th:text="${booking.venue}"></td>
-                    <td th:text="${booking.numberOfAttendees}"></td>
+                   <td th:text="${booking.venue}"></td>
+                    
+                  
+           
                     <td th:text="${booking.date}"></td>
-                    <td th:text="${booking.foodType}"></td>
                     <td th:text="${booking.status}"></td>
+                    <td> <!-- View column -->
+    <a th:href="@{'/newbooking/newView/' + ${booking.id}}" class="btn btn-primary btn-sm">View</a> <!-- Button to view details -->
+</td>
+
+
+                     </td>
+
                 </tr>
             </tbody>
         </table>

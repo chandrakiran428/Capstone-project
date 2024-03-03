@@ -1,10 +1,13 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,6 +17,12 @@ public class Event {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "vendor_id") // This indicates the foreign key column in the events table
+	    private Vendor vendor; // Represents the relationship with the Vendor entity
+	 
+	 
     private String name;
     private String phoneNumber;
     private String email;
@@ -24,7 +33,23 @@ public class Event {
     private String foodType;
     private String mealType;
     private String lunchType;
+    private String status;
     
+    
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+    
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email
@@ -102,6 +127,7 @@ public class Event {
 	public void setLunchType(String lunchType) {
 		this.lunchType = lunchType;
 	}
+	
     
     
 	

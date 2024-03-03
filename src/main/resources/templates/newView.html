@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Booking Details</h2>
+
+        <!-- Section for Order Details -->
+        <div class="card mb-3" th:if="${booking.isPresent()}">
+            <div class="card-header">
+                Order Details
+            </div>
+            <div class="card-body">
+                <p><strong>Phone Number:</strong> <span th:text="${booking.get().phoneNumber}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${booking.get().email}"></span></p>
+                <p><strong>Event Type:</strong> <span th:text="${booking.get().eventType}"></span></p>
+                <p><strong>Venue:</strong> <span th:text="${booking.get().venue}"></span></p>
+                <p><strong>Number of Attendees:</strong> <span th:text="${booking.get().numberOfAttendees}"></span></p>
+                <p><strong>Date:</strong> <span th:text="${booking.get().date}"></span></p>
+                <p><strong>Food Type:</strong> <span th:text="${booking.get().foodType}"></span></p>
+            </div>
+        </div>
+
+        <!-- Section for Vendor Assignment Details -->
+        <div class="card mb-3" th:if="${booking.isPresent() && booking.get().vendor != null}">
+            <div class="card-header">
+                Vendor Assignment Details
+            </div>
+            <div class="card-body">
+                <p><strong>Vendor Name:</strong> <span th:text="${booking.get().vendor.vendor_name}"></span></p>
+                <p><strong>Vendor Email:</strong> <span th:text="${booking.get().vendor.vendor_email}"></span></p>
+                <p><strong>Vendor Status:</strong> <span th:text="${booking.get().vendor.vendor_status}"></span></p>
+            </div>
+        </div>
+        <div class="card mb-3" th:if="${booking.isPresent() && booking.get().vendor == null}">
+            <div class="card-header">
+                Vendor Assignment Details
+            </div>
+            <div class="card-body">
+                <p>No vendor assigned.</p>
+                <!-- Button to assign to a vendor -->
+                <a href="#" class="btn btn-primary">Assign to</a>
+            </div>
+        </div>
+
+        <!-- Section if no booking details found -->
+        <div class="container mt-5" th:if="${booking.isEmpty()}">
+            <p>No booking details found.</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

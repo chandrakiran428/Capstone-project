@@ -1,4 +1,4 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import java.util.List;
 
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Entity.Event;
-import com.example.demo.Entity.User;
-import com.example.demo.Repository.CustomerRepository;
-import com.example.demo.Service.BookingService;
+import com.example.demo.entity.Event;
+import com.example.demo.entity.User;
+import com.example.demo.repository.CustomerRepository;
+import com.example.demo.service.BookingService;
 
 @Controller
 @RequestMapping("/bookings")

@@ -1,4 +1,4 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 import java.security.Principal;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Repository.CustomerRepository;
-import com.example.demo.Entity.User;
+import com.example.demo.entity.User;
+import com.example.demo.repository.CustomerRepository;
 
 
 @Controller

@@ -1,17 +1,22 @@
-package com.ManagerDemo.service.impl;
+package com.example.demo.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ManagerDemo.entity.VenueList;
-import com.ManagerDemo.repository.VenueListRepo;
-import com.ManagerDemo.service.VenueListService;
+import com.example.demo.entity.VenueList;
+import com.example.demo.repository.VenueListRepo;
 
 
+
+//public interface VenueListService {
+//	public List<VenueList> getAllVenueList();
+//
+//	VenueList saveVenue(VenueList venues);
+	
 @Service
-public class VenueListServiceImpl implements VenueListService {
+public class VenueListService {
 
 	@Autowired
 	private VenueListRepo venuelistrepo;
@@ -27,7 +32,6 @@ public class VenueListServiceImpl implements VenueListService {
 
 
 
-	@Override
 	public VenueList saveVenue(VenueList venues) {
 		// TODO Auto-generated method stub
 		return venuelistrepo.save(venues);

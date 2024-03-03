@@ -1,9 +1,9 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
-import com.example.demo.Repository.CustomerRepository;
-import com.example.demo.Repository.EventRepository;
-import com.example.demo.Entity.Event;
-import com.example.demo.Entity.User;
+import com.example.demo.entity.Event;
+import com.example.demo.entity.User;
+import com.example.demo.repository.CustomerRepository;
+import com.example.demo.repository.EventRepository;
 
 import java.util.Optional;
 
