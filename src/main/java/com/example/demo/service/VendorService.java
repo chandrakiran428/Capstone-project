@@ -19,8 +19,8 @@ public class VendorService {
         return vendorRepository.findAll();
     }
 
-    public Vendor getVendorById(int id) {
-        return vendorRepository.findById(id).orElse(null);
+    public Vendor getVendorById(Integer vendorId) {
+        return vendorRepository.findById(vendorId).orElse(null);
     }
 
     public Vendor createVendor(Vendor vendor) {

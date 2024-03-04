@@ -47,6 +47,101 @@
                 <a href="#" class="btn btn-primary">Assign to</a>
             </div>
         </div>
+<!-- Section for Assigning Vendor -->
+<div class="card mb-3">
+    <div class="card-header">
+        Assign Vendor
+    </div>
+    <div class="card-body">
+        <form id="assignVendorForm" th:action="@{'/assignVendor/' + ${booking.get().id}}" method="post">
+            <div class="form-group">
+                <label for="vendorSelect">Select Vendor:</label>
+                <select class="form-control" id="vendorSelect" name="vendorId">
+                    <option value="">-- Select Vendor --</option>
+                </select>
+            </div>
+            <!-- Hidden input field to store the selected vendor ID -->
+            <input type="hidden" id="vendorIdInput" name="vendorId" />
+            <button type="submit" class="btn btn-primary">Assign Vendor</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    // Function to fetch vendor names and populate the dropdown
+    function fetchVendorNames() {
+        fetch('/fetchVendorNames')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const vendorSelect = document.getElementById('vendorSelect');
+                // Clear existing options
+                vendorSelect.innerHTML = '<option value="">-- Select Vendor --</option>';
+                // Add options for each vendor name
+                data.forEach(vendorName => {
+                    const option = document.createElement('option');
+                    option.value = vendorName;
+                    option.textContent = vendorName;
+                    vendorSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    // Call the function to fetch vendor names when the page loads
+    document.addEventListener('DOMContentLoaded', fetchVendorNames);
+
+    // Add event listener to the form submission
+    document.getElementById('assignVendorForm').addEventListener('submit', function(event) {
+        // Prevent the form from submitting normally
+        event.preventDefault();
+        // Get the selected vendor ID
+        const selectedVendorId = document.getElementById('vendorSelect').value;
+        // Set the value of the hidden input field
+        document.getElementById('vendorIdInput').value = selectedVendorId;
+        // Submit the form
+        this.submit();
+    });
+</script>
+
+
+
+
+
+
+
+   <!-- Manager Confirmation Section -->
+<div class="card mb-3">
+    <div class="card-header">
+        Manager Confirmation
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <form th:action="@{'/newbooking/newView/' + ${booking.get().id} + '/accept'}" method="post" class="mr-1">
+                    <button type="submit" class="btn btn-success btn-block">Accept</button>
+                </form>
+            </div>
+            <div class="col">
+                <form th:action="@{'/newbooking/newView/' + ${booking.get().id} + '/reject'}" method="post" class="ml-1">
+                    <button type="submit" class="btn btn-danger btn-block">Reject</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
         <!-- Section if no booking details found -->
         <div class="container mt-5" th:if="${booking.isEmpty()}">

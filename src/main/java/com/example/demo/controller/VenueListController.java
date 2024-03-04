@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Event;
 import com.example.demo.entity.VenueList;
@@ -79,7 +81,7 @@ public class VenueListController {
         return "newView";
     } */
     @GetMapping("/newbooking/newView/{id}")
-    public String viewBookingDetails(@PathVariable Long id, Model model) {
+    public String viewBookingDetails(@PathVariable("id") Long id, Model model) {
        // Assuming you have a method in your service to retrieve booking details by ID
         Optional<Event> booking = bookingService.getBookingById(id);
         
@@ -91,5 +93,52 @@ public class VenueListController {
         return "newView";
     }
 
+    @GetMapping("/errorPage")
+	public String errorPage(Model model) {
+		
+		return "confirmation";
+	}
+    @PostMapping("/updateStatus")
+    public String updateStatus(@RequestParam("bookingId") Long bookingId, @RequestParam("status") String status, RedirectAttributes redirectAttributes) {
+        // Update status in the database
+        boolean updateSuccess = bookingService.updateStatus(bookingId, status);
+        
+        if (updateSuccess) {
+            // If the status is successfully updated, redirect the user to a success page
+            redirectAttributes.addFlashAttribute("successMessage", "Booking status updated successfully!");
+            return "redirect:/newBooking"; // Redirect to a page showing new bookings or any other appropriate page
+        } else {
+            // If the status update fails, redirect the user to an error page or show an error message
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to update booking status.");
+            return "redirect:/errorPage"; // Redirect to an error page or any other appropriate page
+        }
+    }
+    
+    
+    @PostMapping("/newbooking/newView/{id}/accept")
+    public String acceptEvent(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        boolean updateSuccess = bookingService.updateStatus(id, "accepted");
+
+        if (updateSuccess) {
+            redirectAttributes.addFlashAttribute("successMessage", "Event status updated to Accepted!");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to update event status.");
+        }
+
+        return "redirect:/newbooking/newView/{id}";
+    }
+
+    @PostMapping("/newbooking/newView/{id}/reject")
+    public String rejectEvent(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        boolean updateSuccess = bookingService.updateStatus(id, "rejected");
+
+        if (updateSuccess) {
+            redirectAttributes.addFlashAttribute("successMessage", "Event status updated to Rejected!");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to update event status.");
+        }
+
+        return "redirect:/newbooking/newView/{id}";
+    }
 
 }

@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,8 @@ public class Vendor {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int vendor_id;
+	@Column(name = "vendor_id")
+    private int id;
 
 
 	private String vendor_name;
@@ -28,16 +30,11 @@ public class Vendor {
 
 	private String vendor_mobile;
 	private String vendor_status;
-	
-/*	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL) // mappedBy indicates the field in the Event entity that maps the relationship
-    private List<Event> events;
-	*/
-	
-	public int getVendor_id() {
-		return vendor_id;
+	public int getId() {
+		return id;
 	}
-	public void setVendor_id(int vendor_id) {
-		this.vendor_id = vendor_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getVendor_name() {
 		return vendor_name;
@@ -75,6 +72,11 @@ public class Vendor {
 	public void setVendor_status(String vendor_status) {
 		this.vendor_status = vendor_status;
 	}
+	
+/*	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL) // mappedBy indicates the field in the Event entity that maps the relationship
+    private List<Event> events;
+	*/
+	
 	
 	
 	

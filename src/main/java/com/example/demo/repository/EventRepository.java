@@ -9,4 +9,5 @@ import com.example.demo.entity.Event;
 public interface EventRepository extends JpaRepository<Event, Long> {
     // Add custom query methods if needed
 	List<Event> findByStatus(String status);
+	 List<Event> findByStatusIn(List<String> statuses);
 }
